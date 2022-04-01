@@ -1,13 +1,14 @@
 package com.badlogic.drop;
 
+import com.badlogic.drop.screen.MainMenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Drop extends Game {
 
-	SpriteBatch batch;
-	BitmapFont font;
+	private SpriteBatch batch;
+	private BitmapFont font;
 	
 	@Override
 	public void create () {
@@ -28,4 +29,11 @@ public class Drop extends Game {
 		font.dispose();
 	}
 
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	public BitmapFont getFont() {
+		return font;
+	}
 }

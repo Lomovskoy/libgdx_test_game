@@ -1,5 +1,6 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screen;
 
+import com.badlogic.drop.Drop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -7,9 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class MainMenuScreen implements Screen {
 
-    final Drop game;
-    OrthographicCamera camera;
-    Texture background;
+    private final Drop game;
+    private final OrthographicCamera camera;
+    private final Texture background;
 
     public MainMenuScreen(final Drop game) {
         this.game = game;
@@ -29,13 +30,13 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        game.getBatch().setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.batch.draw(background, 0, 0);
-        game.font.draw(game.batch, "Welcome to Drop!!! ", 330, 193);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 320, 160);
-        game.batch.end();
+        game.getBatch().begin();
+        game.getBatch().draw(background, 0, 0);
+        game.getFont().draw(game.getBatch(), "Welcome to Drop!!! ", 330, 193);
+        game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 320, 160);
+        game.getBatch().end();
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));

@@ -1,5 +1,6 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screen;
 
+import com.badlogic.drop.Drop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -19,18 +20,18 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class GameScreen implements Screen {
 
-    final Drop game;
-    Texture dropImage;
-    Texture bucketImage;
-    Texture background;
-    Sound dropSound;
-    Music rainMusic;
-    OrthographicCamera camera;
-    Rectangle bucket;
-    Array<Rectangle> raindrops;
-    long lastDropTime;
-    int dropsGathered;
-    int spawnRainDropTime = 1000000000;
+    private final Drop game;
+    private final Texture dropImage;
+    private final Texture bucketImage;
+    private final Texture background;
+    private final Sound dropSound;
+    private final Music rainMusic;
+    private final OrthographicCamera camera;
+    private final Rectangle bucket;
+    private final Array<Rectangle> raindrops;
+    private long lastDropTime;
+    private int dropsGathered;
+    private int spawnRainDropTime = 1000000000;
 
     public GameScreen(final Drop game) {
         this.game = game;
@@ -88,20 +89,20 @@ public class GameScreen implements Screen {
 
         // сообщаем SpriteBatch о системе координат
         // визуализации указанных для камеры.
-        game.batch.setProjectionMatrix(camera.combined);
+        game.getBatch().setProjectionMatrix(camera.combined);
 
         // начитаем новую серию, рисуем ведро и
         // все капли
-        game.batch.begin();
-        game.batch.draw(background, 0, 0);
-        game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 5, 475);
-        game.font.draw(game.batch, "Spawn Rain Drop Time: " + spawnRainDropTime, 560, 475);
+        game.getBatch().begin();
+        game.getBatch().draw(background, 0, 0);
+        game.getFont().draw(game.getBatch(), "Drops Collected: " + dropsGathered, 5, 475);
+        game.getFont().draw(game.getBatch(), "Spawn Rain Drop Time: " + spawnRainDropTime, 560, 475);
 
-        game.batch.draw(bucketImage, bucket.x, bucket.y);
+        game.getBatch().draw(bucketImage, bucket.x, bucket.y);
         for (Rectangle raindrop : raindrops) {
-            game.batch.draw(dropImage, raindrop.x, raindrop.y);
+            game.getBatch().draw(dropImage, raindrop.x, raindrop.y);
         }
-        game.batch.end();
+        game.getBatch().end();
 
         // обработка пользовательского ввода
         if (Gdx.input.isTouched()) {

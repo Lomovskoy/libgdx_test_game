@@ -1,5 +1,6 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screen;
 
+import com.badlogic.drop.Drop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -7,10 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class GameOverScreen implements Screen {
 
-    final Drop game;
-    OrthographicCamera camera;
-    Texture background;
-    final int dropsGathered;
+    private final Drop game;
+    private final int dropsGathered;
+    private final OrthographicCamera camera;
+    private final Texture background;
 
     public GameOverScreen(Drop game, int dropsGathered) {
         this.game = game;
@@ -19,7 +20,7 @@ public class GameOverScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         // загрузка изображений для фона 800x480 пикселей
-        background = new Texture(Gdx.files.internal("backgroundGame.png"));
+        background = new Texture(Gdx.files.internal("backgroundGameOver.png"));
     }
 
     @Override
@@ -31,13 +32,18 @@ public class GameOverScreen implements Screen {
     public void render(float delta) {
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        game.getBatch().setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.batch.draw(background, 0, 0);
-        game.font.draw(game.batch, "Game Over: ", 330, 230);
-        game.font.draw(game.batch, "Victory Point : " + dropsGathered, 320, 210);
-        game.batch.end();
+        game.getBatch().begin();
+        game.getBatch().draw(background, 0, 0);
+        game.getFont().draw(game.getBatch(), "Game Over: ", 330, 230);
+        game.getFont().draw(game.getBatch(), "Victory Point : " + dropsGathered, 320, 210);
+        game.getBatch().end();
+
+        if (Gdx.input.isTouched()) {
+            game.setScreen(new GameScreen(game));
+            dispose();
+        }
     }
 
     @Override
@@ -62,6 +68,6 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        background.dispose();
     }
 }
