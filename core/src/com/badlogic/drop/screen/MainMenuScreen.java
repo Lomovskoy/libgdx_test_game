@@ -3,6 +3,7 @@ package com.badlogic.drop.screen;
 import com.badlogic.drop.Drop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -11,6 +12,7 @@ public class MainMenuScreen implements Screen {
     private final Drop game;
     private final OrthographicCamera camera;
     private final Texture background;
+    private final FileHandle file;
 
     public MainMenuScreen(final Drop game) {
         this.game = game;
@@ -19,6 +21,7 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
         // загрузка изображений для фона 800x480 пикселей
         background = new Texture(Gdx.files.internal("backgroundMenu.jpg"));
+        file = Gdx.files.internal("save.txt");
     }
 
     @Override
@@ -34,6 +37,7 @@ public class MainMenuScreen implements Screen {
 
         game.getBatch().begin();
         game.getBatch().draw(background, 0, 0);
+        game.getFont().draw(game.getBatch(), "Record: " + file.readString(), 5, 15);
         game.getFont().draw(game.getBatch(), "Welcome to Drop!!! ", 330, 193);
         game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 320, 160);
         game.getBatch().end();

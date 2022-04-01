@@ -3,6 +3,7 @@ package com.badlogic.drop.screen;
 import com.badlogic.drop.Drop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -21,6 +22,8 @@ public class GameOverScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
         // загрузка изображений для фона 800x480 пикселей
         background = new Texture(Gdx.files.internal("backgroundGameOver.png"));
+
+        setRecord(dropsGathered);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class GameOverScreen implements Screen {
         game.getBatch().end();
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new MainMenuScreen(game));
             dispose();
         }
     }
@@ -69,5 +72,13 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         background.dispose();
+    }
+
+    private void setRecord(int dropsGathered) {
+        FileHandle file = Gdx.files.local("save.txt");
+        int record = Integer.parseInt(file.readString());
+        if (dropsGathered > record) {
+            file.writeString(String.valueOf(dropsGathered), false);
+        }
     }
 }
