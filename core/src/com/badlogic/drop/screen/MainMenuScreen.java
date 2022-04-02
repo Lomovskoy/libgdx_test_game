@@ -7,6 +7,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.io.File;
+
 public class MainMenuScreen implements Screen {
 
     private final Drop game;
@@ -21,7 +23,7 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
         // загрузка изображений для фона 800x480 пикселей
         background = new Texture(Gdx.files.internal("backgroundMenu.jpg"));
-        file = Gdx.files.internal("save.txt");
+        file = Gdx.files.internal("assets" + File.separator + "save.txt");
     }
 
     @Override

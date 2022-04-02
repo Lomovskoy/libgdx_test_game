@@ -7,6 +7,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.io.File;
+
 public class GameOverScreen implements Screen {
 
     private final Drop game;
@@ -75,7 +77,7 @@ public class GameOverScreen implements Screen {
     }
 
     private void setRecord(int dropsGathered) {
-        FileHandle file = Gdx.files.local("save.txt");
+        FileHandle file = Gdx.files.local("assets" + File.separator + "save.txt");
         int record = Integer.parseInt(file.readString());
         if (dropsGathered > record) {
             file.writeString(String.valueOf(dropsGathered), false);
