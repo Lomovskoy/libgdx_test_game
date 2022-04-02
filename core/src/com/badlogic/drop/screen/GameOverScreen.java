@@ -1,6 +1,7 @@
 package com.badlogic.drop.screen;
 
 import com.badlogic.drop.Drop;
+import com.badlogic.drop.SaveManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
@@ -25,7 +26,8 @@ public class GameOverScreen implements Screen {
         // загрузка изображений для фона 800x480 пикселей
         background = new Texture(Gdx.files.internal("backgroundGameOver.png"));
 
-        setRecord(dropsGathered);
+        SaveManager saveManager = new SaveManager();
+        saveManager.setRecord(dropsGathered);
     }
 
     @Override
@@ -74,13 +76,5 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         background.dispose();
-    }
-
-    private void setRecord(int dropsGathered) {
-        FileHandle file = Gdx.files.local("assets" + File.separator + "save.txt");
-        int record = Integer.parseInt(file.readString());
-        if (dropsGathered > record) {
-            file.writeString(String.valueOf(dropsGathered), false);
-        }
     }
 }

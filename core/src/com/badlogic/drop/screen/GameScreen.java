@@ -32,6 +32,7 @@ public class GameScreen implements Screen {
     private long lastDropTime;
     private int dropsGathered;
     private int spawnRainDropTime = 1000000000;
+    private int accelerationVector  = 1000000;
 
     public GameScreen(final Drop game) {
         this.game = game;
@@ -127,7 +128,12 @@ public class GameScreen implements Screen {
             spawnRaindrop();
 
         if (spawnRainDropTime > 0) {
-            spawnRainDropTime -= 1000000;
+            spawnRainDropTime -= accelerationVector;
+            if (accelerationVector > 0) {
+                accelerationVector -= 100;
+            } else {
+                accelerationVector = 0;
+            }
         } else {
             spawnRainDropTime = 0;
         }
