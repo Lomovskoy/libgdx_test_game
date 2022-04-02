@@ -11,6 +11,10 @@ public class SaveManager {
 
     public SaveManager() {
         file = Gdx.files.local("assets" + File.separator + "save.txt");
+
+        if (!file.exists()) {
+            file.writeString("0", false);
+        }
     }
 
     public String getSave() {
