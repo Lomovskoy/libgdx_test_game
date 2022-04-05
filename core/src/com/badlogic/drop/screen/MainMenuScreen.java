@@ -1,8 +1,10 @@
 package com.badlogic.drop.screen;
 
 import com.badlogic.drop.Drop;
+import com.badlogic.drop.KeyboardInputProcessor;
 import com.badlogic.drop.SaveManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +15,7 @@ public class MainMenuScreen implements Screen {
     private final OrthographicCamera camera;
     private final Texture background;
     private final SaveManager saveManager;
+    private final KeyboardInputProcessor inputProcessor;
 
     public MainMenuScreen(final Drop game) {
         this.game = game;
@@ -21,6 +24,7 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
         background = new Texture(Gdx.files.internal("backgroundMenu.jpg"));
         saveManager = new SaveManager();
+        inputProcessor = new KeyboardInputProcessor();
     }
 
     @Override
@@ -38,10 +42,10 @@ public class MainMenuScreen implements Screen {
         game.getBatch().draw(background, 0, 0);
         game.getFont().draw(game.getBatch(), "Record: " + saveManager.getSave(), 5, 15);
         game.getFont().draw(game.getBatch(), "Welcome to Drop!!! ", 330, 193);
-        game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 320, 160);
+        game.getFont().draw(game.getBatch(), "Tap Enter to begin!", 330, 160);
         game.getBatch().end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             game.setScreen(new GameScreen(game));
             dispose();
         }

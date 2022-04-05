@@ -3,6 +3,7 @@ package com.badlogic.drop.screen;
 import com.badlogic.drop.Drop;
 import com.badlogic.drop.SaveManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -43,11 +44,12 @@ public class GameOverScreen implements Screen {
 
         game.getBatch().begin();
         game.getBatch().draw(background, 0, 0);
-        game.getFont().draw(game.getBatch(), "Game Over: ", 330, 230);
-        game.getFont().draw(game.getBatch(), "Victory Point : " + dropsGathered, 320, 210);
+        game.getFont().draw(game.getBatch(), "Game Over: ", 330, 250);
+        game.getFont().draw(game.getBatch(), "Victory Point : " + dropsGathered, 320, 220);
+        game.getFont().draw(game.getBatch(), "Tap Backspace to return!", 295, 190);
         game.getBatch().end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
             game.setScreen(new MainMenuScreen(game));
             dispose();
         }
